@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.UI", "TwitterProject.UI\TwitterProject.UI.csproj", "{478D39FF-A543-4C12-AC03-0281A51BE3D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.Core", "TwitterProject.Core\TwitterProject.Core.csproj", "{68248D2D-AF2B-4B0D-9BDB-B23ECD94B72F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.Model", "TwitterProject.Model\TwitterProject.Model.csproj", "{5C87E625-45F8-45D6-B4B7-2F3D646F2702}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.Map", "TwitterProject.Map\TwitterProject.Map.csproj", "{E6347211-543B-470F-BFB3-627A1BFA5026}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.Utility", "TwitterProject.Utility\TwitterProject.Utility.csproj", "{3561BA67-3236-4BEB-99A7-69B9C5B50885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.DAL", "TwitterProject.DAL\TwitterProject.DAL.csproj", "{0911B803-A4FD-444C-8A9C-C1158900D1FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterProject.Service", "TwitterProject.Service\TwitterProject.Service.csproj", "{6B007127-B4B8-4D0C-9F13-9F3D877E0A96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{478D39FF-A543-4C12-AC03-0281A51BE3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{478D39FF-A543-4C12-AC03-0281A51BE3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{478D39FF-A543-4C12-AC03-0281A51BE3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{478D39FF-A543-4C12-AC03-0281A51BE3D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68248D2D-AF2B-4B0D-9BDB-B23ECD94B72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68248D2D-AF2B-4B0D-9BDB-B23ECD94B72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68248D2D-AF2B-4B0D-9BDB-B23ECD94B72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68248D2D-AF2B-4B0D-9BDB-B23ECD94B72F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C87E625-45F8-45D6-B4B7-2F3D646F2702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C87E625-45F8-45D6-B4B7-2F3D646F2702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C87E625-45F8-45D6-B4B7-2F3D646F2702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C87E625-45F8-45D6-B4B7-2F3D646F2702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6347211-543B-470F-BFB3-627A1BFA5026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6347211-543B-470F-BFB3-627A1BFA5026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6347211-543B-470F-BFB3-627A1BFA5026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6347211-543B-470F-BFB3-627A1BFA5026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3561BA67-3236-4BEB-99A7-69B9C5B50885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3561BA67-3236-4BEB-99A7-69B9C5B50885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3561BA67-3236-4BEB-99A7-69B9C5B50885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3561BA67-3236-4BEB-99A7-69B9C5B50885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0911B803-A4FD-444C-8A9C-C1158900D1FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0911B803-A4FD-444C-8A9C-C1158900D1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0911B803-A4FD-444C-8A9C-C1158900D1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0911B803-A4FD-444C-8A9C-C1158900D1FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B007127-B4B8-4D0C-9F13-9F3D877E0A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B007127-B4B8-4D0C-9F13-9F3D877E0A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B007127-B4B8-4D0C-9F13-9F3D877E0A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B007127-B4B8-4D0C-9F13-9F3D877E0A96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D4DF6C2-C1F1-4839-829B-B1376F97A592}
+	EndGlobalSection
+EndGlobal
