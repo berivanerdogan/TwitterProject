@@ -37,5 +37,23 @@ namespace TwitterProject.UI.Areas.Member.Controllers
 
             return View(model);
         }
+
+        public ActionResult Tweets()
+        {
+            var model = _tweetService.GetActive();
+            return View(model);
+        }
+
+        public ActionResult Show(Guid id)
+        {
+            TweetDetailVM model = new TweetDetailVM();
+            model.Tweet = _tweetService.GetByID(id);
+            model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
+            model.Comments = _commentService.GetDefault(x => x.TweetID == id);
+            model.Likes = _likeService.GetDefault(x => x.TweetID == id);
+            model.CommentCount = _commentService.GetDefault(x => x.TweetID == id).Count();
+            model.LikeCount = _likeService.GetDefault(x => x.TweetID == id).Count();
+            return View(model);
+        }
     }
 }

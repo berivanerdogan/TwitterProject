@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Member\Controllers\AppUserController.cs" />
+    <Compile Include="Areas\Member\Controllers\CommentController.cs" />
     <Compile Include="Areas\Member\Controllers\HomeController.cs" />
     <Compile Include="Areas\Member\Controllers\TweetController.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
@@ -152,6 +153,7 @@
     <Content Include="Areas\Member\Views\Home\MemberHomeIndex.cshtml" />
     <Content Include="Areas\Member\Views\AppUser\EditProfile.cshtml" />
     <Content Include="Areas\Member\Views\AppUser\UserProfile.cshtml" />
+    <Content Include="Areas\Member\Views\Tweet\GetTweet.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -164,7 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Member\Views\Tweet\" />
+    <Folder Include="Areas\Member\Views\Comment\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Views\AppUser\" />
   </ItemGroup>

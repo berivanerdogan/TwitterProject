@@ -21,40 +21,62 @@ namespace TwitterProject.UI.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                AppUser appUser = _appUserService.FindByUserName(User.Identity.Name);
-
-                Session["FullName"] = appUser.FirstName + " " + appUser.LastName;
-                Session["UserImage"] = appUser.UserImage;
-
-                return Redirect("/Member/Home/MemberHomeIndex");
-            }
-
-            TempData["class"] = "custom-hide";
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(LoginVM credential)
-        {
-            if (ModelState.IsValid)
-            {
-                if (_appUserService.CheckCredentials(credential.UserName,credential.Password))
+                AppUser user = _appUserService.FindByUserName(User.Identity.Name);
+                if (user.Status == Core.Enum.Status.Active || user.Status == Core.Enum.Status.Updated)
                 {
-                    AppUser user = _appUserService.FindByUserName(credential.UserName);
                     string cookie = user.UserName;
                     FormsAuthentication.SetAuthCookie(cookie, true);
-                    Session["FullName"] = user.FirstName + " " + user.LastName;
+                    Session["FullName"] = user.FirstName + ' ' + user.LastName;
                     Session["UserImage"] = user.UserImage;
-
                     return Redirect("/Member/Home/MemberHomeIndex");
                 }
                 else
                 {
-                    ViewData["error"] = "Username or password is wrong";
+                    ViewData["error"] = "Username or Password is wrong!";
                     return View();
                 }
             }
-            TempData["class"] = "custom-show";
-            return View();
+            else
+            {
+                TempData["class"] = "custom-hide";
+                return View();
+            }
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Login(LoginVM credential)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_appUserService.CheckCredentials(credential.UserName, credential.Password))
+                {
+                    AppUser user = _appUserService.FindByUserName(credential.UserName);
+                    if (user.Status == Core.Enum.Status.Active || user.Status == Core.Enum.Status.Updated)
+                    {
+                        string cookie = user.UserName;
+                        FormsAuthentication.SetAuthCookie(cookie, true);
+                        Session["FullName"] = user.FirstName + ' ' + user.LastName;
+                        Session["UserImage"] = user.UserImage;
+                        return Redirect("/Member/Home/MemberHomeIndex");
+                    }
+                    else
+                    {
+                        ViewData["error"] = "Username or Password is wrong!";
+                        return View();
+                    }
+
+                }
+                else
+                {
+                    ViewData["error"] = "Username or Password is wrong!";
+                    return View();
+                }
+            }
+            else
+            {
+                TempData["class"] = "custom-hide";
+                return View();
+            }
         }
         public ActionResult LoginOut()
         {
