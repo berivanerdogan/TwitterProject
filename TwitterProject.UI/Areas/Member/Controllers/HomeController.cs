@@ -29,10 +29,13 @@ namespace TwitterProject.UI.Areas.Member.Controllers
 
             foreach (var item in model.Tweets)
             {
-                model.Comments = _commentService.GetDefault(x => x.TweetID == item.ID).OrderByDescending(X => X.CreatedDate).ToList();
-
-                model.LikeCount = _likeService.GetDefault(x => x.TweetID == item.ID).Count();
+              
+                model.Tweet = _tweetService.GetByID(item.ID);
+                model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
+                model.Comments = _commentService.GetDefault(x => x.TweetID == item.ID);
+                model.Likes = _likeService.GetDefault(x => x.TweetID == item.ID);
                 model.CommentCount = _commentService.GetDefault(x => x.TweetID == item.ID).Count();
+                model.LikeCount = _likeService.GetDefault(x => x.TweetID == item.ID).Count();
             }
 
             return View(model);
@@ -44,16 +47,5 @@ namespace TwitterProject.UI.Areas.Member.Controllers
             return View(model);
         }
 
-        public ActionResult Show(Guid id)
-        {
-            TweetDetailVM model = new TweetDetailVM();
-            model.Tweet = _tweetService.GetByID(id);
-            model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
-            model.Comments = _commentService.GetDefault(x => x.TweetID == id);
-            model.Likes = _likeService.GetDefault(x => x.TweetID == id);
-            model.CommentCount = _commentService.GetDefault(x => x.TweetID == id).Count();
-            model.LikeCount = _likeService.GetDefault(x => x.TweetID == id).Count();
-            return View(model);
-        }
     }
 }
