@@ -47,7 +47,7 @@ namespace TwitterProject.UI.Areas.Member.Controllers
 
         public JsonResult GetTweetComment(string id)
         {
-            Guid tweetID = new Guid(id);
+            Guid tweetID = new Guid(id);           
             Comment comment = _commentService.GetDefault(x => x.TweetID == tweetID && x.Status == Core.Enum.Status.Active).LastOrDefault();
 
             return Json(new

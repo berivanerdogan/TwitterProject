@@ -25,7 +25,8 @@ namespace TwitterProject.UI.Areas.Member.Controllers
         public ActionResult MemberHomeIndex()
         {
             TweetDetailVM model = new TweetDetailVM();
-            model.Tweets = _tweetService.GetActive();
+             AppUser user = _appUserService.GetByDefault(x => x.UserName == User.Identity.Name);
+            model.Tweets = _tweetService.GetActive().OrderBy(x=>x.CreatedDate).ToList();
 
             foreach (var item in model.Tweets)
             {
@@ -38,12 +39,6 @@ namespace TwitterProject.UI.Areas.Member.Controllers
                 model.LikeCount = _likeService.GetDefault(x => x.TweetID == item.ID).Count();
             }
 
-            return View(model);
-        }
-
-        public ActionResult Tweets()
-        {
-            var model = _tweetService.GetActive();
             return View(model);
         }
 
