@@ -26,7 +26,7 @@ namespace TwitterProject.UI.Areas.Member.Controllers
         {
             TweetDetailVM model = new TweetDetailVM();
              AppUser user = _appUserService.GetByDefault(x => x.UserName == User.Identity.Name);
-            model.Tweets = _tweetService.GetActive().OrderBy(x=>x.CreatedDate).ToList();
+            model.Tweets = _tweetService.GetActive().OrderByDescending(x=>x.CreatedDate).ToList();
 
             foreach (var item in model.Tweets)
             {

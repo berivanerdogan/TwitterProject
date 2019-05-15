@@ -18,9 +18,14 @@ namespace TwitterProject.UI.Areas.Member.Controllers
             _tweetService = new TweetService();
             _appUserService = new AppUserService();
         }
-   
 
-        public JsonResult TweetAdd(Tweet tweet,HttpPostedFileBase Image)
+        public ActionResult TweetAdd()
+        {
+           return View( _appUserService.GetActive().OrderByDescending(x => x.CreatedDate).ToList());
+        }
+   
+        [HttpPost]
+        public ActionResult TweetAdd(Tweet tweet,HttpPostedFileBase Image)
         {
             List<string> UploadedImagePaths = new List<string>();
             UploadedImagePaths = ImageUploader.UploadSingleImage(ImageUploader.OriginalProfileImagePath, Image, 1);
@@ -41,36 +46,16 @@ namespace TwitterProject.UI.Areas.Member.Controllers
             AppUser user = _appUserService.GetByDefault(x => x.UserName == User.Identity.Name);
             tweet.AppUserID = user.ID;
             tweet.CreatedDate =DateTime.Now;
+           _tweetService.Add(tweet);
 
-            bool isAdded = false;
-            try
-            {
-                _tweetService.Add(tweet);
-                isAdded = true;
-            }
-            catch (Exception ex)
-            {
-                isAdded = false;
-                throw;
-            }
-            return Json(isAdded, JsonRequestBehavior.AllowGet);
+            return Redirect("/Member/Home/MemberHomeIndex");
+      
         }
 
-        public JsonResult GetTweet()
+    public ActionResult Delete(Guid id)
         {
-            //Guid appUserID = new Guid(id);
-            AppUser appUser = _appUserService.GetByDefault(x=>x.UserName==User.Identity.Name);
-
-            Tweet tweet = _tweetService.GetDefault(x => x.AppUserID == appUser.ID && x.Status == Core.Enum.Status.Active).LastOrDefault();
-
-            return Json(new
-            {
-                AppUserImagePath = tweet.AppUser.UserImage,
-                FirstName = tweet.AppUser.FirstName,
-                LastName = tweet.AppUser.LastName,
-                CreatedDate = tweet.CreatedDate.ToString(),
-                Content = tweet.Content,
-            }, JsonRequestBehavior.AllowGet);
+            _tweetService.Remove(id);
+            return Redirect("/Member/Home/MemberHomeIndex");
         }
     }
 }
