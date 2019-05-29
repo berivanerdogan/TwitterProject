@@ -27,13 +27,14 @@ namespace TwitterProject.UI.Areas.Member.Controllers
             TweetDetailVM model = new TweetDetailVM();
              AppUser user = _appUserService.GetByDefault(x => x.UserName == User.Identity.Name);
             model.Tweets = _tweetService.GetActive().OrderByDescending(x=>x.CreatedDate).ToList();
+            model.Comments=_commentService.GetActive().OrderBy(x => x.CreatedDate).ToList();
 
             foreach (var item in model.Tweets)
             {
               
                 model.Tweet = _tweetService.GetByID(item.ID);
-                model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
-                model.Comments = _commentService.GetDefault(x => x.TweetID == item.ID);
+                model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID );
+                model.Comments = _commentService.GetDefault(x => x.TweetID == item.ID || x.Status == TwitterProject.Core.Enum.Status.Active);
                 model.Likes = _likeService.GetDefault(x => x.TweetID == item.ID);
                 model.CommentCount = _commentService.GetDefault(x => x.TweetID == item.ID).Count();
                 model.LikeCount = _likeService.GetDefault(x => x.TweetID == item.ID).Count();

@@ -4,71 +4,105 @@
     Layout = "~/Areas/Member/Views/Shared/MemberLayoutPage.cshtml";
 }
 
-@model List<TwitterProject.Model.Option.AppUser>
+@model  TwitterProject.UI.Areas.Member.Models.VM.TweetDetailVM
 
 <div class="content">
     <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-12">
-                <div class="box box-widget widget-user">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header bg-aqua-active">
-                        <div class="widget-user-image col-sm-4">
-                            <img class="img-circle" src="@Session["UserImage"]" alt="User Avatar">
-                        </div>
-                        <h3 class="widget-user-username">@item.FirstName @item.LastName</h3>
-                        <h5 class="widget-user-desc">@item.Bio</h5>
-                    </div>
-                   
-                    <div class="box-footer">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="col-sm-4 border-left" style="text-align:left">
-                                    <div class="description-block">
-                                        <h5 class="description-header">@item.Tweets.Count()</h5>
-                                        <span class="description-text">Tweets</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-sm-4 border-left">
-                                    <div class="description-block">
-                                        <h5 class="description-header">@item.Follow</h5>
-                                        <span class="description-text">Following</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-sm-4 border-left">
-                                    <div class="description-block">
-                                        <h5 class="description-header">@item.Follower</h5>
-                                        <span class="description-text">Followers</span>
-                                    </div>
-                                    <!-- /.description-block -->
-                                </div>
+        <div class="col-md-12">
+            <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                    <h3 class="widget-user-username">@Session["FullName"]</h3>
+                    <h4 class="widget-user-bio">@Session["Bio"]</h4>
+                </div>
+                <div class="widget-user-image col-lg-8">
 
+                    <img class="img-circle" src="@Session["UserImage"]" alt="User Avatar">
+                </div>
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="col-sm-4 border-left" style="text-align:left">
+                                <div class="description-block">
+                                    <h5 class="description-header">
+                                   
+                                    @Model.Tweets.Count()</h5>
+                                    <span class="description-text">Tweets</span>
+                                </div>
+                                <!-- /.description-block -->
                             </div>
                             <!-- /.col -->
-                            <div class="col-md-8 border-right">
-                                @if (item.UserName == User.Identity.Name)
+                            <div class="col-sm-4 border-left">
+                                <div class="description-block">
+                                    <h5 class="description-header">13,000</h5>
+                                    <span class="description-text">Following</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4 border-left">
+                                <div class="description-block">
+                                    <h5 class="description-header">35</h5>
+                                    <span class="description-text">Followers</span>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-8 border-right">
+                            @foreach (var item in Model.AppUsers)
+                            {
+                                if (item.UserName == User.Identity.Name)
                                 {
                                     <div class="border-right">
                                         <div class="description-block border-right">
-                                            <a href="/Member/AppUser/EditProfile/@item.ID*/" type="button" class="btn btn-default btn-flat">Profile Settings</a>
+                                            <a href="/Member/AppUser/EditProfile/@item.ID" type="button" class="btn btn-default btn-flat">Edit Profile</a>
                                         </div>
                                         <!-- /.description-block -->
-                                    </div>                                
+                                    </div>
                                 }
-                            </div>
+                            }
                         </div>
-                        <!-- /.row -->
                     </div>
+                    <!-- /.row -->
                 </div>
             </div>
-        }
-
+        </div>
 
     </div>
+
+    <div class="box">
+        <div class="box-footer box-comments col-md-12" id="dynamictweet">
+            @foreach (var item in Model.Tweets)
+            {
+                <div class="row">
+                    <div class="col-md-11">
+                        <!-- Box Comment -->
+                        <div class="box box-widget">
+                            <div class="box-header with-border">
+                                <div class="user-block">
+                                    <img class="img-circle" src="@item.AppUser.UserImage" alt="User Image">
+                                    <span class="username"><a href="#">@item.AppUser.FirstName @item.AppUser.LastName</a></span>
+                                    <span class="description"> @item.CreatedDate</span>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body" id="articlelist">
+                                <img class="img-responsive pad" src="@item.ImagePath" alt="Photo">
+                                <p>@item.Content</p>
+                                <br />
+                            </div>
+                            <!-- /.box-footer -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
 </div>
+
 

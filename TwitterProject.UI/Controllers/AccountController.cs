@@ -28,6 +28,7 @@ namespace TwitterProject.UI.Controllers
                     FormsAuthentication.SetAuthCookie(cookie, true);
                     Session["FullName"] = user.FirstName + ' ' + user.LastName;
                     Session["UserImage"] = user.UserImage;
+                    Session["Bio"] = user.Bio;               
                     return Redirect("/Member/Home/MemberHomeIndex");
                 }
                 else
@@ -57,6 +58,9 @@ namespace TwitterProject.UI.Controllers
                         FormsAuthentication.SetAuthCookie(cookie, true);
                         Session["FullName"] = user.FirstName + ' ' + user.LastName;
                         Session["UserImage"] = user.UserImage;
+                        Session["Bio"] = user.Bio;
+                      
+
                         return Redirect("/Member/Home/MemberHomeIndex");
                     }
                     else

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TwitterProject.Model.Option;
 using TwitterProject.Service.Option;
+using TwitterProject.UI.Areas.Member.Models.VM;
 using TwitterProject.Utility;
 
 namespace TwitterProject.UI.Areas.Member.Controllers
@@ -13,15 +14,28 @@ namespace TwitterProject.UI.Areas.Member.Controllers
     {
         TweetService _tweetService;
         AppUserService _appUserService;
+        CommentService _commentService;
+        LikeService _likeService;
+
         public TweetController()
         {
             _tweetService = new TweetService();
             _appUserService = new AppUserService();
+            _commentService = new CommentService();
+            _likeService = new LikeService();
         }
 
         public ActionResult TweetAdd()
         {
-           return View( _appUserService.GetActive().OrderByDescending(x => x.CreatedDate).ToList());
+            Guid userid = _appUserService.FindByUserName(User.Identity.Name).ID;
+            TweetDetailVM model = new TweetDetailVM()
+            {
+                Tweets = _tweetService.GetDefault(x => x.AppUserID == userid && (x.Status == TwitterProject.Core.Enum.Status.Active || x.Status == TwitterProject.Core.Enum.Status.Updated)),
+                AppUsers = _appUserService.GetDefault(x => x.ID == userid)
+            };
+            return View(model);
+            //Guid userid = _appUserService.FindByUserName(User.Identity.Name).ID;
+            //return View( _tweetService.GetDefault(x=>x.AppUserID==userid && (x.Status==TwitterProject.Core.Enum.Status.Active|| x.Status == TwitterProject.Core.Enum.Status.Updated)).OrderByDescending(x => x.CreatedDate).ToList());
         }
    
         [HttpPost]
@@ -54,8 +68,27 @@ namespace TwitterProject.UI.Areas.Member.Controllers
 
     public ActionResult Delete(Guid id)
         {
-            _tweetService.Remove(id);
+            Tweet tweet = _tweetService.GetByID(id);
+            if (tweet.AppUser.UserName==User.Identity.Name)
+            {
+                _tweetService.Remove(id);
+                return Redirect("/Member/Home/MemberHomeIndex");
+            }            
             return Redirect("/Member/Home/MemberHomeIndex");
+        }
+
+        public ActionResult Detail(Guid id)
+        {
+            TweetDetailVM model = new TweetDetailVM();
+            model.Tweet = _tweetService.GetByID(id);
+            model.AppUser = _appUserService.GetByID(model.Tweet.AppUser.ID);
+            model.Comments = _commentService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+            model.LikeCount = _likeService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
+            model.CommentCount = _commentService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count;
+            model.Likes = _likeService.GetDefault(x => x.TweetID == id && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated));
+
+
+            return View(model);
         }
     }
 }

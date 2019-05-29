@@ -22,6 +22,7 @@ namespace TwitterProject.UI.Areas.Member.Controllers
             _tweetService = new TweetService();
             _likeService = new LikeService();
         }
+
         
         public JsonResult AddComment(string userComment,Guid id)
         {
