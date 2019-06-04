@@ -129,7 +129,9 @@
                                                             <br />
                                                         </span>
                                                     </span><!-- /.username -->
+
                                                     @item2.Content
+
                                                 </div>
                                                 <!-- /.comment-text -->
                                             </div>
@@ -137,6 +139,13 @@
 
                                     }
 
+                                    @if (item.Comments.Count >= 3)
+                                    {
+
+                                        <div class="clearfix">
+                                            <a class="btn btn-xs float-right" href="/Member/Tweet/Detail/@item.ID">Older Comments &rarr;</a>
+                                        </div>
+                                    }
                                     <a href="/Member/Tweet/Detail/@item.ID" id="addLike" type="button" onclick="like('@item.ID')" class="btn btn-default btn-sm"><i class="fa fa-thumbs-o-up">Like</i> Or  <i class="fa fa-commenting-o">Comments</i></a>
 
                                     <br />

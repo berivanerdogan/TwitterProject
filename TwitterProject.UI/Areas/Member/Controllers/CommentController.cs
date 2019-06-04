@@ -62,5 +62,25 @@ namespace TwitterProject.UI.Areas.Member.Controllers
                 LikeCount = _likeService.GetDefault(x => x.TweetID == tweetID && (x.Status == Core.Enum.Status.Active || x.Status == Core.Enum.Status.Updated)).Count()
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Delete(Guid id)
+        {
+            Guid userID = _appUserService.FindByUserName(HttpContext.User.Identity.Name).ID;
+            Comment comment = _commentService.GetByID(id);
+            bool isDelete = false;
+
+
+            if (comment.AppUserID == userID)
+            {
+                isDelete = true;
+                _commentService.Remove(id);
+                return Json(isDelete, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                isDelete = false;
+                return Json(isDelete, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

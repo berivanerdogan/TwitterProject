@@ -46,7 +46,7 @@
                                         <br />
                                         @if (item.AppUser.UserName == User.Identity.Name)
                                         {
-                                            <a href="/Member/Comment/DeleteComment/@item.ID" id="commentdelete" type="button" onclick="commentdelete('@item.ID')" class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a>
+                                            <a href="/Member/Comment/Delete/@item.ID" id="commentdelete" type="button" onclick="commentdelete('@item.ID')" class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a>
                                             <button type="button" id="edit" class="btn btn-default btn-xs"><i class="fa fa-edit"></i></button>
 
                                         }
@@ -84,7 +84,7 @@
     function commentdelete(id) {
         $.ajax({
                     type: "POST",
-                    url: "@Url.Action("DeleteComment","Comment")/" + id,
+                    url: "@Url.Action("Delete","Comment")/" + id,
             success: function (result) {
                 $("#a_" + id).fadeOut();
 
